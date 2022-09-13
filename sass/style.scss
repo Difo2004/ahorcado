@@ -1,0 +1,22 @@
+
+@mixin color_btn ($fondo, $texto) {
+    background: $fondo;
+    border-color: $texto;
+    color: $texto;
+}
+
+$color1: #0a3871;
+$color1-hover: hsl(213, 84%, 34%);
+
+$color2: #dcdde1;
+
+$fondo: #dcdde1;
+
+@import '_general';
+@import '_inicio';
+@import '_agregar';
+@import '_juego';
+
+.oculto {
+    display: none;
+}

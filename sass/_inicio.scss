@@ -1,0 +1,33 @@
+
+.comenzar {
+    place-self: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    #iniciar {
+        padding: 40px 10%;   
+        width: 350px;
+    }
+    
+    #agregar {
+        width: 250px;
+        padding: 20px 6%;
+    }
+
+    @media screen and (max-width: 400px) {
+        width: 100%;
+        .botones {
+            margin: 10px auto;
+        }
+        #agregar {
+            width: 70%;
+        }
+        #iniciar {
+            width: 90%;
+        }
+    }
+}
+
+
+
+
