@@ -2,11 +2,11 @@ let palabras = [
     'ATUN', 'HELADO', 'LLUVIA', 'ZAPATO', 'GEMELOS', 'CERVEZA', 'WHISKI', 'NARANJA', 'PICANTE', 'AMOR', 'PATO', 'AVION', 'TOMATE', 'OJO', 'CIELO',
     'YATE', 'JUGO', 'ROJO', 'MAR', 'TSUNAMI', 'PIZZA', 'BURRITO', 'SOLEADO', 'LUZ', 'VIENTO', 'TORRE', 'CAOS', 'GATO', 'KOALA', 'DRAGON', 'LEON',
     'CARRO', 'PATINES', 'BOMBILLO', 'ESTUFA', 'ENCHUFE', 'MONITOR', 'PIEZAS', 'AJEDREZ', 'YAUTIA', 'MANZANA', 'ESTUCHE', 'CINTURA', 'CABELLO',
-    'SOL', 'MALO', 'BUENO', 'NEUTRO', 'GENIAL', 'OSCURO', 'TIEMPO', 'HIELO', 'QUIETO', 'PINTURA', 'IGUALES', 'BONITO', 'FEO', 'CELULAR',
-    'MASCOTA', 'BUHO', 'MAPACHE', 'HILO', 'ARO'
+    'SOL', 'MALO', 'BUENO', 'NEUTRO', 'GENIAL', 'OSCURO', 'TIEMPO', 'HIELO', 'QUIETO', 'PINTURA', 'IGUALES', 'BONITO', 'FEO', 'CELULAR', 'MARATON',
+    'MASCOTA', 'BUHO', 'MAPACHE', 'HILO', 'ARO', 'TIERNO', 'CABALLO', 'PELUCA', 'TIJERAS', 'ALGODON', 'CALVO', 'REPTIL'
 ]
 
-let fondo = "#dcdde1", color = "#0a3871";
+let fondo = "#636e72", color = "#0a3871";
 // 600px es el limite
 
 /**
@@ -312,7 +312,7 @@ function mensaje (modo) {
     // Si se termino el juego debido a que acerto la palabra entonces se muestra un mensaje de que gano el juego en color verde
     if (modo === "gano") {
         
-        pincel.fillStyle = "green";
+        pincel.fillStyle = "#44bd32";
         texto1 = "Ganaste,";
         texto2 = "felicidades!";
     }
@@ -320,7 +320,7 @@ function mensaje (modo) {
     // Si se termino el juego debido a que se completo el muñeco entonces se muestra un mensaje de fin del juego en color rojo
     if (modo === "perdio") {
         
-        pincel.fillStyle = "#c23616";
+        pincel.fillStyle = "#c0392b";
         texto1 = "Fin del";
         texto2 = "juego";
     }
@@ -400,6 +400,7 @@ function letra_incorrecta () {
     lapiz.fillText(palabras_incorrectas.join(" "), x, 100);
 
     // Si se completa el muñeco entonces se manda el mensaje de que perdio
+    console.log(cont);
     if (cont === 9) mensaje("perdio")
 }
 
@@ -441,7 +442,11 @@ function comprobar_letras (e) {
 
                 // Si no se habia presionada esa letra entonces...
                 if (index === - 1) {
-                    
+
+                    // Se agregan mas parte del muñeco
+                    cont++;
+                    dibujo();
+
                     // Se inserta la letra incorrecta en la lista de letras incorrectas
                     palabras_incorrectas.push(vocales);
 
@@ -449,10 +454,6 @@ function comprobar_letras (e) {
                     // Se imprimen la lista de las palabras correctas en la pantalla
                     letra_incorrecta();
                 }
-
-                // Se agregan mas parte del muñeco
-                cont++;
-                dibujo();
             }
         }
     }
