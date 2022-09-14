@@ -275,6 +275,13 @@ function visualizar (ocultar, mostrar) {
 function palabra_secreta () {
 
     document.getElementById('teclado').focus();
+    
+    // Se comprueban las letras presionadas por el usuario
+    let dibujar = document.getElementById("ahorcar");
+    document.addEventListener("keypress", comprobar_letras);
+
+    let caja_tor = document.querySelector(".dibujo");
+    caja_tor.addEventListener("keypress", comprobar_letras);
 
     // Limpiar el juego anterior
     limpiar_juego();
