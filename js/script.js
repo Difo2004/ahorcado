@@ -274,6 +274,8 @@ function visualizar (ocultar, mostrar) {
  */
 function palabra_secreta () {
 
+    document.getElementById("teclado").focus()
+
     // Limpiar el juego anterior
     limpiar_juego();
 
