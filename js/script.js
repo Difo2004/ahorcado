@@ -546,7 +546,10 @@ function iniciar () {
 
 // Se comprueban las letras presionadas por el usuario
 let dibujar = document.getElementById("ahorcar");
-document.addEventListener("keypress", comprobar_letras)
+document.addEventListener("keypress", comprobar_letras);
+
+let caja_tor = document.querySelector(".dibujo");
+caja_tor.addEventListener("keypress", comprobar_letras);
 
 // Cuando se presiona el boton de Iniciar Juego se muestra el apartado del juego y se inicia el juego
 let juego = document.getElementById("iniciar");
