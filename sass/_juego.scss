@@ -19,10 +19,13 @@
 
 #presionar_teclas {
     position: absolute;
-    left: calc(100% - 177px);
+    padding: 0px;
+    width: .5px;
+    left: calc(100% - .5px);
+    top: 75%;
     border: none;
     color: $fondo;
-    background: $fondo;
+    background: none;
     outline: none;
     text-decoration: none;
     cursor: default;
