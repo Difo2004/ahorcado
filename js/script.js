@@ -274,7 +274,11 @@ function visualizar (ocultar, mostrar) {
  */
 function palabra_secreta () {
 
-    document.getElementById('teclado').focus();
+
+    lienzo2.addEventListener("click", function () {
+        
+        lienzo2.focus();    
+    });
 
     // Limpiar el juego anterior
     limpiar_juego();
@@ -452,7 +456,6 @@ function comprobar_letras (e) {
                     // Se inserta la letra incorrecta en la lista de letras incorrectas
                     palabras_incorrectas.push(vocales);
 
-                    
                     // Se imprimen la lista de las palabras correctas en la pantalla
                     letra_incorrecta();
                 }
@@ -545,8 +548,7 @@ function iniciar () {
 }
 
 // Se comprueban las letras presionadas por el usuario
-let dibujar = document.getElementById("ahorcar");
-document.addEventListener("keypress", comprobar_letras)
+document.addEventListener("keypress", comprobar_letras);
 
 // Cuando se presiona el boton de Iniciar Juego se muestra el apartado del juego y se inicia el juego
 let juego = document.getElementById("iniciar");
