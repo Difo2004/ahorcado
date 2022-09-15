@@ -12,14 +12,14 @@
 </head>
 <body>
     <main class="contenido">
-        <h1 class="logo"><img src="image/Vector.png" alt="Logotipo de la pagina web"></h1>
+        <h1 id="logo"><img src="image/Vector.png" alt="Logotipo de la pagina web"></h1>
         <div class="comenzar">
             <button type="button" class="botones primario" id="iniciar">Iniciar Juego</button>
             <button type="button" class="botones secundario" id="agregar">Agregar nueva palabra</button>
         </div>
-        <div class="dibujo oculto" id="teclado">
+        <div class="dibujo oculto">
             <canvas width="400" height="260" class="munheco"></canvas>
-            <canvas width = '20' height = 110' class="letras" tabindex="0"></canvas>
+            <canvas width = '20' height = 110' class="letras"></canvas>
             <div class="menu_opciones">
                 <button type="button" class="botones primario" id="nuevo">Nuevo Juego</button>
                 <button type="button" class="botones secundario" id="regresar_juego">Desistir</button>

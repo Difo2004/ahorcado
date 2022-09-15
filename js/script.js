@@ -249,15 +249,19 @@ function posicion_letras (longitud) {
  * Crea guiones para cada letra de la palabra secreta
  */
 function guiones_letras () {
-    
+
     // Se establece el ancho de los guiones de las letras a partir de la longitud de la palabra secreta
-    lienzo2.width = posicion_letras(secreto.length);
+    lienzo2.width = posicion_letras(secreto.length) + 10;
     
     // Se establece el color de los guiones
     lapiz.fillStyle = color;
 
     // Se crea un guion para cada letra de la palabra secreta
-    for (let x = 0; x < lienzo2.width; x += width + espaciado) lapiz.fillRect(x, 50, width, 5);
+    for (let x = 0; x < lienzo2.width - 5; x += width + espaciado) {
+
+        x = x || 5;
+        lapiz.fillRect(x, 50, width, 5)
+    };
 }
 
 /**
@@ -353,6 +357,7 @@ function mensaje (modo) {
         // Se imprime el mensaje final
         pincel.fillText(texto1 + " " + texto2, 0, 20);
     }
+
     // Se indica que se termino el juego
     termino = true;
 }
@@ -385,10 +390,12 @@ function letra_correcta (letra, indice) {
  * Completa el muñeco a medida que se presiona las teclas incorrectas y muestra las letras incorrectas
  */
 function letra_incorrecta () {
+    
+    let {clientWidth: tamanho_body} = document.getElementsByTagName("body")[0];
 
     // Se hace un retroceso a partir del total de letras incorrectas
-    let back = (palabras_incorrectas.length - 1) * 10;
-
+    let back = (palabras_incorrectas.length - 1) * (tamanho_body >= 450 ? 10 : 5);
+    
     // Indica a partir de donde se comenzara a escribir las letras
     let x = lienzo2.width/2 - 10 - back;
 
@@ -398,7 +405,9 @@ function letra_incorrecta () {
     
     // Se inserta la lista de letras incorrectas nuevas
     lapiz.fillStyle = color;
-    lapiz.font = '22px Verdana';
+    
+    let font = tamanho_body >= 450 ? 18 : 12; 
+    lapiz.font = font + 'px Verdana';
     lapiz.fillText(palabras_incorrectas.join(" "), x, 100);
 
     // Si se completa el muñeco entonces se manda el mensaje de que perdio
@@ -578,3 +587,7 @@ regresar_agregar.addEventListener("click", _=> visualizar("agregar_datos", "come
 // Se guardan las palabra escrita la lista de las palabras del juego
 let datos = document.getElementById("enviar_datos");
 datos.addEventListener("click", agregar_palabras);
+
+
+let pruebana = 2 || 24;
+console.log(pruebana)
