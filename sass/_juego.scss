@@ -16,3 +16,20 @@
         place-self: center;
     }
 }
+
+#presionar_teclas {
+    position: absolute;
+    left: calc(100% - 177px);
+    border: none;
+    color: $fondo;
+    background: $fondo;
+    outline: none;
+    text-decoration: none;
+    cursor: default;
+    &::placeholder {
+        color: $fondo;
+    }
+    &:focus {
+        outline: none;
+    }
+}

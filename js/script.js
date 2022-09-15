@@ -3,11 +3,11 @@ let palabras = [
     'YATE', 'JUGO', 'ROJO', 'MAR', 'TSUNAMI', 'PIZZA', 'BURRITO', 'SOLEADO', 'LUZ', 'VIENTO', 'TORRE', 'CAOS', 'GATO', 'KOALA', 'DRAGON', 'LEON',
     'CARRO', 'PATINES', 'BOMBILLO', 'ESTUFA', 'ENCHUFE', 'MONITOR', 'PIEZAS', 'AJEDREZ', 'YAUTIA', 'MANZANA', 'ESTUCHE', 'CINTURA', 'CABELLO',
     'SOL', 'MALO', 'BUENO', 'NEUTRO', 'GENIAL', 'OSCURO', 'TIEMPO', 'HIELO', 'QUIETO', 'PINTURA', 'IGUALES', 'BONITO', 'FEO', 'CELULAR', 'MARATON',
-    'MASCOTA', 'BUHO', 'MAPACHE', 'HILO', 'ARO', 'TIERNO', 'CABALLO', 'PELUCA', 'TIJERAS', 'ALGODON', 'CALVO', 'REPTIL'
+    'MASCOTA', 'BUHO', 'MAPACHE', 'HILO', 'ARO', 'TIERNO', 'CABALLO', 'PELUCA', 'TIJERAS', 'ALGODON', 'CALVO', 'REPTIL', 'HOYO', 'CASA', 'FRESA',
+    'CHICLE', 'UVAS', 'TORO', 'LOCURA', 'ANDROID', 'ROBOT'
 ]
 
 let fondo = "#636e72", color = "#0a3871";
-// 600px es el limite
 
 /**
  * Lista de las letras incorrectas que se presionan
@@ -56,6 +56,8 @@ let width = 50;
  * Espacio entre cada guion de letra
  */
 let espaciado = 20;
+
+let cantidad_total = 0;
 
 /**
  * Crea extremidades para el muñeco del ahorcado
@@ -274,12 +276,6 @@ function visualizar (ocultar, mostrar) {
  */
 function palabra_secreta () {
 
-
-    lienzo2.addEventListener("click", function () {
-        
-        lienzo2.focus();    
-    });
-
     // Limpiar el juego anterior
     limpiar_juego();
 
@@ -412,56 +408,60 @@ function letra_incorrecta () {
 
 /**
  * Comprueba que tecla se presiono y el curso de accion a seguir
- * @param {*} e Indica la tecla presionada
  */
-function comprobar_letras (e) {
+function comprobar_letras () {
 
-    // Se comprueba si no se ha terminado el juego
-    if (!termino) {
+    let {value: datos} = this;
+    if (datos.length >= cantidad_total) {
 
-        // Convertir la vocal en mayusula
-        let vocales = e.key.toUpperCase();
+        // Se comprueba si no se ha terminado el juego
+        if (!termino) {
 
-        // Se comprueba si la tecla presionada no es ni numero ni un ccaracter especial
-        if (/[a-zA-Z]/g.test(vocales)) {
-    
-            // Se comprueba si la vocal presionada esta o no en la palabra secreta
-            let indice = secreto.indexOf(vocales);
-    
-            // Si la letra esta en la palabra secreta entonces...
-            if (indice > -1) {
-            
-                // Se elimina la letra de la palabra para encontrar su siguiente aparicion
-                secreto = secreto.replace(vocales, " ");
+            // Convertir la vocal en mayusula
+            let vocales = datos.at(-1).toUpperCase();
 
-                // Se agrega la letra correcta a la lista de palabras correctas
-                palabras_correctas[indice] = vocales;
+            // Se comprueba si la tecla presionada no es ni numero ni un ccaracter especial
+            if (/[a-zA-Z]/g.test(vocales)) {
+        
+                // Se comprueba si la vocal presionada esta o no en la palabra secreta
+                let indice = secreto.indexOf(vocales);
+        
+                // Si la letra esta en la palabra secreta entonces...
+                if (indice > -1) {
+                
+                    // Se elimina la letra de la palabra para encontrar su siguiente aparicion
+                    secreto = secreto.replace(vocales, " ");
 
-                // Se imprime la letra correcta
-                letra_correcta(vocales, indice);
-            }
-            // Si la letra no esta en la palabra secreta entonces...
-            else {
+                    // Se agrega la letra correcta a la lista de palabras correctas
+                    palabras_correctas[indice] = vocales;
 
-                // Se comprueba si ya se habia presionada esa letra incorrecta
-                let index = palabras_incorrectas.indexOf(vocales);
+                    // Se imprime la letra correcta
+                    letra_correcta(vocales, indice);
+                }
+                // Si la letra no esta en la palabra secreta entonces...
+                else {
 
-                // Si no se habia presionada esa letra entonces...
-                if (index === - 1) {
+                    // Se comprueba si ya se habia presionada esa letra incorrecta
+                    let index = palabras_incorrectas.indexOf(vocales);
 
-                    // Se agregan mas parte del muñeco
-                    cont++;
-                    dibujo();
+                    // Si no se habia presionada esa letra entonces...
+                    if (index === - 1) {
 
-                    // Se inserta la letra incorrecta en la lista de letras incorrectas
-                    palabras_incorrectas.push(vocales);
+                        // Se agregan mas parte del muñeco
+                        cont++;
+                        dibujo();
 
-                    // Se imprimen la lista de las palabras correctas en la pantalla
-                    letra_incorrecta();
+                        // Se inserta la letra incorrecta en la lista de letras incorrectas
+                        palabras_incorrectas.push(vocales);
+
+                        // Se imprimen la lista de las palabras correctas en la pantalla
+                        letra_incorrecta();
+                    }
                 }
             }
         }
     }
+    cantidad_total = datos.length;
 }
 
 /**
@@ -530,6 +530,8 @@ function comprobar_letras (e) {
     }
 }
 
+let prueba = document.getElementById("presionar_teclas");
+
 /**
  * Inicia el juego desde el apartado de inicio
  */
@@ -538,17 +540,20 @@ function iniciar () {
     // Se muestra el apartado de juego y se oculta el apartado de inicio
     visualizar("comenzar", "dibujo");
 
+    prueba.focus();
+
     // Se detecta cualqueir cambio en el tamaño de la pagina web
     let observar = new ResizeObserver(observar_tamanho);
     observar.observe(document.getElementsByTagName("body")[0]);
 
     // Se inicia el juego
     palabra_secreta();
-
 }
 
+document.querySelector(".dibujo").addEventListener("click", _=> prueba.focus());
+
 // Se comprueban las letras presionadas por el usuario
-document.addEventListener("keypress", comprobar_letras);
+prueba.addEventListener("input", comprobar_letras);
 
 // Cuando se presiona el boton de Iniciar Juego se muestra el apartado del juego y se inicia el juego
 let juego = document.getElementById("iniciar");
